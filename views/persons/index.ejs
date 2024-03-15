@@ -1,0 +1,63 @@
+<%- include('../layout/header') %>
+
+<div class="container">
+    <div class="row my-4">
+        <div class="col-lg-12">
+            <% if (message) { %>
+                <div class="alert alert-dismissible fade show alert-<%= message.type %>" role="alert">
+                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong><%= message.message %></strong>
+                </div>
+            <% } %>
+
+            <div class="mx-auto" style="width: 200px;">
+                <div class="btn btn-success">
+                    <a class="nav-link" href="/citizens/add">
+                        <i class="fas fa-user-plus me-1"></i>Add User
+                    </a>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <% if (persons.length > 0) { %>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="align-middle table-dark">
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Image</th>
+                                <th class="text-center">First Name</th>
+                                <th class="text-center">Last Name</th>
+                                <th class="text-center">Sex</th>
+                                <th class="text-center">Age</th>
+                                <th class="text-center">Address</th>
+                                <th class="text-center">City</th>
+                                <th class="text-center">Province</th>
+                                <th class="text-center">Nationality</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% persons.forEach((row, index) => { %>
+                                <tr class="align-middle">
+                                    <td class="text-center"><%= index + 1%></td>
+                                    <td class="text-center"><img src="<%= row.image %>" width="50" class="img" /></td>
+                                    <td class="text-center"><a href="/citizens/<%= row._id %>"><%= row.firstName %></a></td>
+                                    <td class="text-center"><%= row.lastName %></td>
+                                    <td class="text-center"><%= row.sex %></td>
+                                    <td class="text-center"><%= calculateAge(row.dateOfBirth) %></td>
+                                    <td class="text-center"><%= row.address.street %></td>
+                                    <td class="text-center"><%= row.address.city %></td>
+                                    <td class="text-center"><%= row.address.state %></td>
+                                    <td class="text-center"><%= row.nationality %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <h1 class="text-center text-secondary mt-5">No individuals found in the database</h1>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layout/footer') %>

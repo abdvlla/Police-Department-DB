@@ -1,0 +1,273 @@
+<%- include('../layout/header') %>
+
+    <!-- <h3 class="mx-3 my-2"><%= officer.firstName + " " + officer.lastName + "'s details"  %></h3>
+
+<div class="mx-auto my-3" style="width: 200px;">
+    <img src="/<%= officer.image %>">
+</div> -->
+
+    <div class="container emp-profile">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-img">
+                        <img src="/<%= officer.image %>">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="profile-head">
+                        <h5>
+                            <%= officer.firstName + " " + officer.lastName + "'s details" %>
+                        </h5>
+                        <p class="profile-rating">officer ID : <span>
+                                <%= officer.id %>
+                            </span></p>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                    aria-controls="home" aria-selected="true">About</a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <a href="/officers/<%= officer._id %>/edit" class="btn btn-dark profile-edit-btn">Edit Profile</a>
+                    <a href="/officers/<%= officer._id %>/delete" onclick="confirmDelete(event, '<%= officer._id %>')"
+                        class="btn btn-danger profile-edit-btn my-2">Delete Profile</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-work">
+                        <h6 class="my-4">Number of Cases</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><%= casesByOfficer.length %></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-8">
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>First Name</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>
+                                        <%= officer.firstName %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Last Name</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>
+                                        <%= officer.lastName %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Sex</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>
+                                        <%= officer.sex %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Primary Phone No.</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>
+                                        <%= officer.phoneNumber %>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Date Of Birth</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>
+                                        <%= officer.dateOfBirth %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Badge Number</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>
+                                        <%= officer.badgeNumber %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Rank</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>
+                                        <%= officer.rank %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="row">
+                                
+                    </div>
+                </div>
+                <% if (casesByOfficer.length > 0) { %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="page-header">Incidents</h2>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">Crime Type</th>
+                                            <th class="text-center">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% casesByOfficer.forEach((row, index) => { %>
+                                            <tr class="align-middle">
+                                                <td class="text-center"><%= index + 1 %></td>
+                                                <td class="text-center"><a href="/cases/<%= row._id %>"><%= row.crimeType %></a></td>
+                                                <td class="text-center"><%= row.dateOfCrime.toISOString().split('T')[0] %></td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#myTab a').on('click', function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+    
+        function confirmDelete(event, personId) {
+            var confirmation = confirm('Are you sure you want to delete this entity? Record will be lost forever.');
+            if (!confirmation) {
+                event.preventDefault(); // Prevent the default action if the user clicks cancel
+            }
+        }
+    </script>
+    
+
+    <style>
+        body {
+            background: grey;
+        }
+
+        .emp-profile {
+            padding: 3%;
+            margin-top: 3%;
+            margin-bottom: 3%;
+            border-radius: 0.5rem;
+            background: #fff;
+        }
+
+        .profile-img {
+            text-align: center;
+        }
+
+        .profile-img img {
+            width: 70%;
+            height: 100%;
+        }
+
+        .profile-head h5 {
+            color: #333;
+        }
+
+        .profile-head h6 {
+            color: #0062cc;
+        }
+
+        .profile-edit-btn {
+            border: none;
+            border-radius: 1.5rem;
+            width: 70%;
+            padding: 2%;
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .proile-rating {
+            font-size: 12px;
+            color: #818182;
+            margin-top: 5%;
+        }
+
+        .proile-rating span {
+            color: #495057;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+
+        .profile-head .nav-tabs .nav-link {
+            font-weight: 600;
+            border: none;
+        }
+
+        .profile-head .nav-tabs .nav-link.active {
+            border: none;
+            border-bottom: 2px solid #0062cc;
+        }
+
+        .profile-work {
+            padding: 14%;
+            margin-top: -15%;
+        }
+
+        .profile-work p {
+            font-weight: 600;
+        }
+
+
+        .profile-work ul {
+            list-style: none;
+        }
+
+        .profile-tab label {
+            font-weight: 600;
+        }
+
+        .profile-tab p {
+            font-weight: 600;
+            color: #0062cc;
+        }
+        .container {
+            border: solid 1px black;
+        }
+    </style>
+
+    <%- include('../layout/footer') %>

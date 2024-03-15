@@ -1,0 +1,166 @@
+<%- include('../layout/header') %>
+
+  <div class="container">
+    <h3 class="my-2">Create Incident</h3>
+    <div class="row">
+      <form action="/cases/add" method="post" id="add-form" class="row g-3">
+        <div class="col-md-12 position-relative">
+          <label for="crimeType" class="form-label ">Crime Committed</label>
+          <select class="form-control form-control-lg" name="crimeType" onchange="checkValue(this.value)" required>
+            <option selected disabled value="">Choose...</option>
+            <option>Counterfeiting</option>
+            <option>Credit/debit card fraud</option>
+            <option>Criminal contempt of court</option>
+            <option value="Cyberbullying">Cyberbullying</option>
+            <option>Disorderly conduct</option>
+            <option>Disturbing the peace</option>
+            <option>Domestic violence</option>
+            <option>Drug manufacturing and cultivation</option>
+            <option>Drug possession</option>
+            <option>Drug trafficking/distribution</option>
+            <option>DUI/DWI</option>
+            <option>Embezzlement</option>
+            <option>Extortion</option>
+            <option>Forgery</option>
+            <option>Fraud</option>
+            <option>Harassment</option>
+            <option>Hate crimes</option>
+            <option>Homicide</option>
+            <option>Insurance fraud</option>
+            <option>Identity theft</option>
+            <option>Kidnapping</option>
+            <option>Manslaughter: Involuntary</option>
+            <option>Manslaughter: Voluntary</option>
+            <option>Medical Marijuana</option>
+            <option>MIP: A minor in possession</option>
+            <option>Money laundering</option>
+            <option>Murder: First-degree</option>
+            <option>Murder: Second-degree</option>
+            <option>Obstruction of justice</option>
+            <option>Open container (of alcohol)</option>
+            <option>Parole violation</option>
+            <option>Perjury</option>
+            <option>Probation violation</option>
+            <option>Prostitution</option>
+            <option>Public intoxication</option>
+            <option>Pyramid schemes</option>
+            <option>Racketeering/RICO</option>
+            <option>Robbery</option>
+            <option>Securities fraud</option>
+            <option>Shoplifting</option>
+            <option>Solicitation</option>
+            <option>Stalking</option>
+            <option>Tax evasion/fraud</option>
+            <option>Telemarketing fraud</option>
+            <option>Theft</option>
+            <option>Vandalism</option>
+            <option>White collar crimes</option>
+            <option>Wire fraud</option>
+            <!-- <option value="other">Other</option> -->
+          </select>
+        </div>
+
+        <div class="col-md-6 position-relative">
+          <label for="personId" class="form-label">Suspect</label>
+          <select class="form-control form-control-lg" name="personId" required>
+            <option selected disabled value="">Choose...</option>
+            <% persons.forEach(person=> { %>
+              <option value="<%= person._id %>">
+                <%= person.firstName %>
+                  <%= person.lastName %>
+              </option>
+              <% }); %>
+          </select>
+        </div>
+
+        <div class="col-md-6 position-relative">
+          <label for="officerId" class="form-label">Officer Involved</label>
+          <select class="form-control form-control-lg" name="officerId" required>
+            <option selected disabled value="">Choose...</option>
+            <% officers.forEach(officer=> { %>
+              <option value="<%= officer._id %>">
+                <%= officer.firstName %>
+                  <%= officer.lastName %>
+              </option>
+              <% }); %>
+          </select>
+        </div>
+
+        <div class="col-6">
+          <label for="location.street" class="form-label">Address</label>
+          <input type="text" class="form-control form-control-lg" name="location.street" required>
+        </div>
+
+        <div class="col-md-6 position-relative">
+          <label for="location.town" class="form-label ">Town</label>
+          <select class="form-control form-control-lg" name="location.town" required>
+            <option selected disabled value="">Choose...</option>
+            <option value="Wolfville">Wolfville</option>
+            <option value="New Minas">New Minas</option>
+            <option value="Kentville">Kentville</option>
+            <option value="Kentville">Coldbrook</option>
+            <option value="Berwick">Berwick</option>
+            <option value="Windsor">Windsor</option>
+            <option value="Port Williams">Port Williams</option>
+            <option value="Canning">Canning</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="dateOfCrime" class="form-label" inline="true">Date of Incident</label>
+          <input type="date" name="dateOfCrime"
+          value="<%= crime.dateOfCrime == null ? '' : crime.dateOfCrime.toISOString().split('T')[0] %>"
+            class="form-control form-control-lg" required>
+        </div>
+
+        <div class="col-md-6 position-relative">
+          <label for="status" class="form-label">Status of Incident</label>
+          <select class="form-control form-control-lg" name="status" required>
+            <option selected disabled value="">Choose...</option>
+            <option value="Open">Open - Under Investigation</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Closed">Closed - Resolved</option>
+            <option value="Suspended">Suspended</option>
+            <option value="Dismissed">Dismissed</option>
+          </select>
+        </div>
+        <div class="col-md-12">
+          <label for="descriptionOfCrime" class="form-label">Detailed Description of Incident</label>
+          <textarea class="form-control form-control-lg custom-textarea" rows="6" name="descriptionOfCrime"
+            required></textarea>
+        </div>
+        <button type="submit" class="btn btn-secondary btn-lg btn-dark">Create Incident</button>
+        <p></p>
+      </form>
+    </div>
+  </div>
+
+  <style>
+    body {
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h3 {
+      color: #333;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    .form-control {
+      height: calc(2.75rem + 2px);
+      font-size: 1.2rem;
+    }
+
+    .custom-textarea {
+      height: auto;
+    }
+  </style>
+
+  <%- include('../layout/footer') %>

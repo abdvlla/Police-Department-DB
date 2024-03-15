@@ -1,0 +1,113 @@
+<%- include('../layout/header') %>
+
+
+  <div class="container">
+    <h3>Edit <%= officer.firstName + " " + officer.lastName + "'s details" %>
+      <img src="/<%= officer.image %>" width="100" class="img-responsive mt-1">
+    </h3>
+    <div class="row">
+      <form action="/updateOfficer/<%= officer._id %>" method="post" id="add-form" class="row g-3"
+        enctype="multipart/form-data">
+        <div class="col-md-6">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" placeholder="John" class="form-control form-control-lg" value="<%= officer.firstName %>"
+            name="firstName">
+        </div>
+
+        <div class="col-md-6">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input type="text" placeholder="Dough" class="form-control form-control-lg" value="<%= officer.lastName %>"
+            name="lastName">
+        </div>
+
+        <div class="col-md-6">
+          <label for="phoneNumber" class="form-label">Phone Number</label>
+          <input type="tel" class="form-control form-control-lg" name="phoneNumber" value="<%= officer.phoneNumber %>"
+            placeholder="902-123-4567">
+        </div>
+
+        <div class="col-md-6 position-relative">
+          <label for="sex" class="form-label">Sex</label>
+          <select class="form-control form-control-lg" name="sex" id="validationTooltip04">
+            <option disabled value="">Choose...</option>
+            <option <%=officer.sex==='Male' ? 'selected' : '' %> >Male</option>
+            <option <%=officer.sex==='Female' ? 'selected' : '' %> >Female</option>
+          </select>
+          <div class="invalid-tooltip">
+            Please determine whether the officer is male or female
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="dateOfBirth" class="form-label">Date of Birth</label>
+          <input type="date" name="dateOfBirth"
+            value="<%= officer.dateOfBirth ? officer.dateOfBirth.toISOString().split('T')[0] : '' %>"
+            
+            class="form-control form-control-lg">
+        </div>
+
+        <div class="col-md-6">
+          <label for="badgeNumber" class="form-label">Badge Number</label>
+          <input type="text" placeholder="2781" class="form-control form-control-lg" value="<%= officer.badgeNumber %>"
+            name="badgeNumber">
+        </div>
+
+        <div class="col-md-6 position-relative">
+          <label for="rank" class="form-label ">Rank</label>
+          <select class="form-control form-control-lg" name="rank">
+            <option disabled value="">Choose...</option>
+            <option <%=officer.rank==='Constable' ? 'selected' : '' %> value="Constable">Constable</option>
+            <option <%=officer.rank==='Senior Constable' ? 'selected' : '' %> value="Senior Constable">Senior Constable
+            </option>
+            <option <%=officer.rank==='Detective Sergeant' ? 'selected' : '' %> value="Detective Sergeant">Detective
+              Sergeant</option>
+            <option <%=officer.rank==='Sergeant' ? 'selected' : '' %> value="Sergeant">Sergeant</option>
+            <option <%=officer.rank==='Staff Sergeant' ? 'selected' : '' %> value="Staff Sergeant">Staff Sergeant
+            </option>
+            <option <%=officer.rank==='Inspector' ? 'selected' : '' %> value="Inspector">Inspector</option>
+            <option <%=officer.rank==='Superintendent' ? 'selected' : '' %> value="Superintendent">Superintendent
+            </option>
+            <option <%=officer.rank==='Deputy Chief of Police' ? 'selected' : '' %> value="Deputy Chief of
+              Police">Deputy Chief of Police</option>
+            <option <%=officer.rank==='Chief of Police' ? 'selected' : '' %> value="Chief of Police">Chief of Police
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-6 position-relative">
+          <label for="image" class="form-label">Insert Image of Individual</label>
+          <input class="form-control form-control-lg" type="file" accept="image/*" name="image">
+        </div>
+
+        <input type="hidden" name="old_image" value="<%= officer.image %>">
+        <button type="submit" value="Update officer" class="btn btn-success btn-lg btn-dark">Update Identity</button>
+      </form>
+    </div>
+  </div>
+
+  <style>
+    body {
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h3 {
+      color: #333;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    .form-control {
+      height: calc(2.75rem + 2px);
+      font-size: 1.2rem;
+    }
+
+  </style>
+
+  <%- include('../layout/footer') %>

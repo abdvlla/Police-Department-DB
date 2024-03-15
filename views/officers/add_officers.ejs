@@ -1,0 +1,98 @@
+<%- include('../layout/header') %>
+
+    <div class="container mt-5">
+        <h3 class="my-2">Add Officer</h3>
+        <div class="row">
+            <form action="/officers/add" method="post" id="add-form" class="row g-3" enctype="multipart/form-data">
+                <div class="col-md-6">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" placeholder="John" class="form-control form-control-lg" name="firstName"
+                        required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" placeholder="Dough" class="form-control form-control-lg" name="lastName"
+                        required>
+                </div>
+
+                <div class="col-md-6 position-relative">
+                    <label for="sex" class="form-label ">Sex</label>
+                    <select class="form-control form-control-lg" name="sex" required>
+                        <option selected disabled value="">Choose...</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="dateOfBirth" class="form-label" inline="true">Date of Birth</label>
+                    <input placeholder="Select date" type="date" name="dateOfBirth" class="form-control form-control-lg" required>
+                  </div>
+
+                <div class="col-md-6">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control form-control-lg" name="phoneNumber"
+                        placeholder="902-123-4567">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="badgeNumber" class="form-label">Badge Number</label>
+                    <input type="text" class="form-control form-control-lg" name="badgeNumber"
+                        placeholder="9999" maxlength="4"  pattern="\d{4}">
+                </div>
+
+                <div class="col-md-6 position-relative">
+                    <label for="rank" class="form-label ">Rank</label>
+                    <select class="form-control form-control-lg" name="rank" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option value="Constable">Constable</option>
+                      <option value="Senior Constable">Senior Constable</option>
+                      <option value="Detective Sergeant">Detective Sergeant</option>
+                      <option value="Sergeant">Sergeant</option>
+                      <option value="Staff Sergeant">Staff Sergeant</option>
+                      <option value="Inspector">Inspector</option>
+                      <option value="Superintendent">Superintendent</option>
+                      <option value="Deputy Chief of Police">Deputy Chief of Police</option>
+                      <option value="Chief of Police">Chief of Police</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6 position-relative">
+                    <label for="image" class="form-label">Insert Image of Officer</label>
+                    <input class="form-control form-control-lg" type="file" accept="image/*" name="image" required>
+                  </div>
+
+                  <button type="submit" class="btn btn-secondary btn-lg btn-dark">Add Officer</button>
+
+            </form>
+        </div>
+    </div>
+
+    <style>
+        body {
+          font-size: 14px;
+        }
+    
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+        }
+    
+        h3 {
+          color: #333;
+        }
+    
+        label {
+          font-weight: bold;
+        }
+    
+        .form-control {
+          height: calc(2.75rem + 2px);
+          font-size: 1.2rem;
+        }
+    
+      </style>
+
+
+    <%- include('../layout/footer') %>
